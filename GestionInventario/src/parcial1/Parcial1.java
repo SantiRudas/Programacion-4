@@ -14,8 +14,8 @@ public class Parcial1 {
         UsuarioServicio usuarioServicio = new UsuarioServicio();
 
         // Crear usuarios de ejemplo
-        Usuario usuario1 = new Usuario(1, "Santiago", "Rudas", "CC", "1004754881", "Calle 6 #26-78", "1234", true);
-        Usuario usuario2 = new Usuario(2, "Carlos", "Ramirez", "CC", "10000001", "Calle 5 #26-78", "4321", false);
+        Usuario usuario1 = new Usuario(1, "Santiago", "Rudas", "CC", "1004754881", "Calle 6 #26-78", "3127969513", false, "santiago.rudas@utp.edu.co", "1234");
+        Usuario usuario2 = new Usuario(2, "Gustavo", "Castañeda", "CC", "10000001", "Calle 5 #26-78", "3005647890", true, "gustavo@gmail.com", "4321");
         
         // Agregar los usuarios al servicio
         UsuarioRepositorio.crearUsuario(usuario1);
@@ -23,15 +23,15 @@ public class Parcial1 {
         
         UsuarioRepositorio.mostrarListadoUsuarios();
         
+        UsuarioRepositorio.activarUsuario(1);
+        
+        UsuarioRepositorio.inactivarUsuario(2);
+        
+        UsuarioRepositorio.modificarAtributoUsuario(2, "tipodocumento", "TI");
+        
+        UsuarioRepositorio.mostrarListadoUsuarios();
+        //UsuarioRepositorio.buscarUsuarioPorDocumento("10000001");
         //UsuarioRepositorio.buscarUsuarioPorDocumento("1004754881");
-        
-        UsuarioRepositorio.activarUsuario(2);
-        
-        UsuarioRepositorio.buscarUsuarioPorDocumento("10000001");
-        
-        UsuarioRepositorio.inactivarUsuario(1);
-        
-        UsuarioRepositorio.buscarUsuarioPorDocumento("1004754881");
         
         new LoginFrame();
     }

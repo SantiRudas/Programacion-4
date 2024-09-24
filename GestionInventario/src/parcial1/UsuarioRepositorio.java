@@ -13,13 +13,11 @@ import java.util.ArrayList;
 public class UsuarioRepositorio {
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     
-    //metodo para agregar un usuario al array
     public static void crearUsuario(Usuario usuario){
         usuarios.add(usuario);
         System.out.println("Usuario creado existosamente");
     }
     
-    //metodo para modificar un usuario existente en el array
     public static void modificarUsuario(int id, Usuario usuarioModificado){
        for(Usuario usuario: usuarios){
            if(usuario.getId() == id){
@@ -30,6 +28,8 @@ public class UsuarioRepositorio {
                usuario.setDireccion(usuarioModificado.getDireccion());
                usuario.setTelefono(usuarioModificado.getTelefono());
                usuario.setActivo(usuarioModificado.isActivo());
+               usuario.setCorreo(usuarioModificado.getCorreo());
+               usuario.setCorreo(usuarioModificado.getContrasenia());
                System.out.println("Usuario modificado exitosamente");
                return;
            }
@@ -50,6 +50,8 @@ public class UsuarioRepositorio {
                 System.out.println("Direccion: " + usuario.getDireccion());
                 System.out.println("Telefono: " + usuario.getTelefono());
                 System.out.println("Activo: " + (usuario.isActivo() ? "Si" : "No"));
+                System.out.println("Correo: " + usuario.getCorreo());
+                System.out.println("Contrasena: "+ usuario.getContrasenia());
                 System.out.println("---------------------------");
                 return usuario;
             }
@@ -58,10 +60,28 @@ public class UsuarioRepositorio {
         return null;
     }
     
-    public static ArrayList<Usuario> obtenerListadoUsuarios(){
-        return usuarios;
+    public static Usuario buscarUsuarioPorCorreo(String correo){
+        for(Usuario usuario : usuarios){
+            if(usuario.getCorreo().equals(correo)){
+                System.out.println("Usuario encontrado:");
+                System.out.println("ID: " + usuario.getId());
+                System.out.println("Nombre: " + usuario.getNombre());
+                System.out.println("Apellido: " + usuario.getApellido());
+                System.out.println("Tipo de Documento: " + usuario.getTipoDocumentoIdentidad());
+                System.out.println("Numero de Documento: " + usuario.getNumeroDocumentoIdentidad());
+                System.out.println("Direccion: " + usuario.getDireccion());
+                System.out.println("Telefono: " + usuario.getTelefono());
+                System.out.println("Activo: " + (usuario.isActivo() ? "Si" : "No"));
+                System.out.println("Correo: " + usuario.getCorreo());
+                System.out.println("Contrasena: " + usuario.getContrasenia());
+                System.out.println("---------------------------");
+                return usuario;
+            }
+        }
+        System.out.println("Usuario No encontrado");
+        return null;
     }
-    // Método para obtener y mostrar el listado de los usuarios que están en el array
+    
     public static void mostrarListadoUsuarios(){
         System.out.println("Listado de usuarios:");
         for (Usuario usuario : usuarios) {
@@ -73,11 +93,16 @@ public class UsuarioRepositorio {
             System.out.println("Direccion: " + usuario.getDireccion());
             System.out.println("Telefono: " + usuario.getTelefono());
             System.out.println("Activo: " + (usuario.isActivo() != null && usuario.isActivo() ? "Si" : "No"));
+            System.out.println("Correo: " + usuario.getCorreo());
+            System.out.println("Contrasena: "+ usuario.getContrasenia());
             System.out.println("---------------------------"); // Separador entre usuarios
         }
     }
     
-    //metodo para activar usuario
+    public static ArrayList<Usuario> obtenerListadoUsuarios(){
+        return usuarios;
+    }
+    
     public static void activarUsuario(int id){
         for(Usuario usuario : usuarios){
             if(usuario.getId() == id){
@@ -89,7 +114,6 @@ public class UsuarioRepositorio {
         System.out.println("Usuario No encontrado");
     }
     
-    //metodo para inactivar usuario
     public static void inactivarUsuario(int id){
         for(Usuario usuario : usuarios){
             if(usuario.getId() == id){
@@ -99,5 +123,56 @@ public class UsuarioRepositorio {
             }
         }
         System.out.println("Usuario No encontrado");
+    }
+    
+    
+    public static void modificarAtributoUsuario(int id, String atributo, Object nuevoAtributo){
+        for(Usuario usuario : usuarios){
+            if(usuario.getId() == id){
+                switch(atributo.toLowerCase()){
+                    case "nombre":
+                        usuario.setNombre((String) nuevoAtributo);
+                        break;
+                        
+                    case "apellido":
+                        usuario.setApellido((String) nuevoAtributo);
+                        break;
+                        
+                    case "tipodocumento":
+                        usuario.setTipoDocumentoIdentidad((String) nuevoAtributo);
+                        break;
+                        
+                    case "numerodocumento":
+                        usuario.setNumeroDocumentoIdentidad((String) nuevoAtributo);
+                        break;
+                        
+                    case "direccion":
+                        usuario.setDireccion((String) nuevoAtributo);
+                        break;
+                        
+                    case "telefono":
+                        usuario.setTelefono((String) nuevoAtributo);
+                        break;
+                        
+                    case "estado":
+                        usuario.setActivo((Boolean) nuevoAtributo);
+                        break;
+                        
+                    case "correo":
+                        usuario.setCorreo((String) nuevoAtributo);
+                        break;
+                        
+                    case "contraseña":
+                        usuario.setContrasenia((String) nuevoAtributo);
+                        break;
+                        
+                    default:
+                        System.out.println("Atributo no valido");
+                        return;
+                }
+                System.out.println("Atributo " + atributo + " modificado exitosamente");
+                return;
+            }
+        }
     }
 }

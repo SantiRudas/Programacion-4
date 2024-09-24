@@ -52,9 +52,8 @@ public class LoginFrame extends JFrame{
                 String correo = correoField.getText();
                 String contrasena = new String(contrasenaField.getPassword());
 
-                // Validar el usuario usando UsuarioServicio
                 if (usuarioServicio.validarUsuario(correo, contrasena)) {
-                    Usuario usuario = usuarioServicio.obtenerUsuarioPorDocumento(correo);
+                    Usuario usuario = usuarioServicio.obtenerUsuarioPorCorreo(correo);
                     new MainFrame(usuario);  // Mostrar la pantalla principal
                     dispose();  // Cerrar la ventana de login
                 } else {

@@ -17,12 +17,14 @@ public class Usuario {
     private String direccion;
     private String telefono;
     private Boolean activo;
+    private String correo;
+    private String contrasenia;
     
     public Usuario() {}
     
     public Usuario(int id, String nombre, String apellido, 
             String tipoDocumentoIdentidad, String numeroDocumentoIdentidad,
-            String direccion, String telefono, Boolean activo)
+            String direccion, String telefono, Boolean activo, String correo, String contrasenia)
     {
         
         this.id = id;
@@ -33,6 +35,8 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono = telefono;
         this.activo = activo;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
     }
 
     public int getId() {
@@ -97,5 +101,23 @@ public class Usuario {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
-    }      
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
 }

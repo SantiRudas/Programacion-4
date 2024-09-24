@@ -18,17 +18,22 @@ public class UsuarioServicio {
         
     }
     
-    //metodo validacion usuario, se asume que el correo es el numero de documento y la contraseña es el telefono
     public boolean validarUsuario(String correo, String contraseña){
         for(Usuario usuario : UsuarioRepositorio.obtenerListadoUsuarios()){
-            if(usuario.getNumeroDocumentoIdentidad().equals(correo) && usuario.getTelefono().equals(contraseña)){
-                return true;
+            if(usuario.getCorreo().equals(correo) && usuario.getContrasenia().equals(contraseña)){
+                if(usuario.isActivo()){
+                    return true;
+                }
+                else{
+                    System.out.println("El usuario esta inactivo, no puede iniciar sesion");
+                    return false;
+                }
             }
         }
         return false;
     }
     
-    public Usuario obtenerUsuarioPorDocumento(String correo) {
-        return usuarioRepositorio.buscarUsuarioPorDocumento(correo);
+    public Usuario obtenerUsuarioPorCorreo(String correo) {
+        return usuarioRepositorio.buscarUsuarioPorCorreo(correo);
     }
 }
