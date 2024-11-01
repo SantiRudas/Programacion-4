@@ -19,12 +19,14 @@ public class Usuario {
     private Boolean activo;
     private String correo;
     private String contrasenia;
+    private String rol;
     
     public Usuario() {}
     
     public Usuario(int id, String nombre, String apellido, 
             String tipoDocumentoIdentidad, String numeroDocumentoIdentidad,
-            String direccion, String telefono, Boolean activo, String correo, String contrasenia)
+            String direccion, String telefono, Boolean activo, String correo,
+            String contrasenia, String rol)
     {
         
         this.id = id;
@@ -37,6 +39,7 @@ public class Usuario {
         this.activo = activo;
         this.correo = correo;
         this.contrasenia = contrasenia;
+        this.rol = rol;
     }
 
     public int getId() {
@@ -117,6 +120,14 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     
     

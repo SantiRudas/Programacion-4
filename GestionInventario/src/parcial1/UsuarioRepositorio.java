@@ -30,6 +30,7 @@ public class UsuarioRepositorio {
                usuario.setActivo(usuarioModificado.isActivo());
                usuario.setCorreo(usuarioModificado.getCorreo());
                usuario.setCorreo(usuarioModificado.getContrasenia());
+               usuario.setRol(usuarioModificado.getRol());
                System.out.println("Usuario modificado exitosamente");
                return;
            }
@@ -52,6 +53,7 @@ public class UsuarioRepositorio {
                 System.out.println("Activo: " + (usuario.isActivo() ? "Si" : "No"));
                 System.out.println("Correo: " + usuario.getCorreo());
                 System.out.println("Contrasena: "+ usuario.getContrasenia());
+                System.out.println("Rol: " + usuario.getRol());
                 System.out.println("---------------------------");
                 return usuario;
             }
@@ -74,6 +76,7 @@ public class UsuarioRepositorio {
                 System.out.println("Activo: " + (usuario.isActivo() ? "Si" : "No"));
                 System.out.println("Correo: " + usuario.getCorreo());
                 System.out.println("Contrasena: " + usuario.getContrasenia());
+                System.out.println("Rol: " + usuario.getRol());
                 System.out.println("---------------------------");
                 return usuario;
             }
@@ -95,6 +98,7 @@ public class UsuarioRepositorio {
             System.out.println("Activo: " + (usuario.isActivo() != null && usuario.isActivo() ? "Si" : "No"));
             System.out.println("Correo: " + usuario.getCorreo());
             System.out.println("Contrasena: "+ usuario.getContrasenia());
+            System.out.println("Rol: " + usuario.getRol());
             System.out.println("---------------------------"); // Separador entre usuarios
         }
     }
@@ -118,7 +122,7 @@ public class UsuarioRepositorio {
         for(Usuario usuario : usuarios){
             if(usuario.getId() == id){
                 usuario.setActivo(false);
-                System.out.println("UsuarioIinactivado exitosamente");
+                System.out.println("Usuario inactivado exitosamente");
                 return;
             }
         }
@@ -165,6 +169,9 @@ public class UsuarioRepositorio {
                     case "contraseña":
                         usuario.setContrasenia((String) nuevoAtributo);
                         break;
+                        
+                    case "rol":
+                        usuario.setRol((String) nuevoAtributo);
                         
                     default:
                         System.out.println("Atributo no valido");
