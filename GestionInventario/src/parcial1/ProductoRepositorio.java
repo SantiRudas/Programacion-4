@@ -20,6 +20,39 @@ public class ProductoRepositorio {
         System.out.println("Producto creado exitosamente");
     }
     
+    public static void eliminarProducto(Producto producto) {
+        if (productos.contains(producto)) {
+            productos.remove(producto);
+            // También podrías agregar una lógica adicional aquí, como guardar los cambios en la base de datos, etc.
+        } else {
+            throw new IllegalArgumentException("El producto no existe en el repositorio.");
+        }
+    }
+    
+    // Método para actualizar un producto existente
+    public static void actualizarProducto(Producto productoActualizado) {
+        for (int i = 0; i < productos.size(); i++) {
+            Producto producto = productos.get(i);
+            if (producto.getNombre().equals(productoActualizado.getNombre())) {
+                // Actualiza los atributos
+                producto.setDescripcion(productoActualizado.getDescripcion());
+                producto.setCategoria(productoActualizado.getCategoria());
+                producto.setCantidadInicial(productoActualizado.getCantidadInicial());
+                producto.setPrecio(productoActualizado.getPrecio());
+                producto.setUnidadDeMedida(productoActualizado.getUnidadDeMedida());
+                
+                // Verifica si el producto es perecedero o duradero y actualiza los campos específicos
+                if (producto instanceof ProductoPerecedero && productoActualizado instanceof ProductoPerecedero) {
+                    ((ProductoPerecedero) producto).setFechaDeVencimiento(((ProductoPerecedero) productoActualizado).getFechaDeVencimiento());
+                } else if (producto instanceof ProductoDuradero && productoActualizado instanceof ProductoDuradero) {
+                    ((ProductoDuradero) producto).setDuracionEnMeses(((ProductoDuradero) productoActualizado).getDuracionEnMeses());
+                    ((ProductoDuradero) producto).setFechaDeFabricacion(((ProductoDuradero) productoActualizado).getFechaDeFabricacion());
+                }
+                break;
+            }
+        }
+    }
+    
     // Método para obtener la lista de productos
     public static List<Producto> obtenerProductos() {
         return new ArrayList<>(productos); // Retorna una copia de la lista de productos

@@ -4,6 +4,7 @@
  */
 package parcial1;
 
+import Interfaces.LoginFrame;
 import java.time.LocalDate;
 
 /**
