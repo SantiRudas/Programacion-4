@@ -163,7 +163,7 @@ public class AgregarProductoFrame extends JDialog {
                         }
                         
                         producto = new ProductoDuradero(nombre, descripcion, categoria, cantidad, precio, unidadDeMedida, duracionEnMeses, fechaDeFabricacion);
-                        // Validar que la fecha de fabricación no sea futura
+                        
                         
                     }
 

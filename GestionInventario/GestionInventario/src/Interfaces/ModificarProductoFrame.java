@@ -80,7 +80,7 @@ public class ModificarProductoFrame extends JDialog {
         unidadMedidaField.setBounds(150, 190, 200, 25);
         add(unidadMedidaField);
 
-        // Campos para Producto Perecedero
+        // Campo para Producto Perecedero
         JLabel fechaVencimientoLabel = new JLabel("Fecha de Vencimiento:");
         fechaVencimientoLabel.setBounds(10, 220, 150, 25);
         add(fechaVencimientoLabel);
@@ -103,13 +103,11 @@ public class ModificarProductoFrame extends JDialog {
         fechaFabricacionField.setBounds(150, 280, 200, 25);
         add(fechaFabricacionField);
 
-        // Etiqueta para el formato de fechas
         JLabel formatoFechaLabel = new JLabel("Formato Fechas: YYYY-MM-DD");
         formatoFechaLabel.setBounds(10, 310, 200, 25);
         add(formatoFechaLabel);
         
         
-        // Botón Guardar
         guardarButton = new JButton("Guardar Cambios");
         guardarButton.setBounds(120, 340, 150, 30);
         add(guardarButton);
@@ -142,7 +140,8 @@ public class ModificarProductoFrame extends JDialog {
                     // Mostrar el campo de fecha de vencimiento y ocultar los demás
                         fechaVencimientoField.setVisible(true);
                         duracionField.setVisible(false);
-                    fechaFabricacionField.setVisible(false);
+                        fechaFabricacionField.setVisible(false);
+                        
                     } else if (seleccionado instanceof ProductoDuradero) {
                     // Cargar información específica del producto duradero
                         duracionField.setText(String.valueOf(((ProductoDuradero) seleccionado).getDuracionEnMeses()));
@@ -171,48 +170,48 @@ public class ModificarProductoFrame extends JDialog {
             Producto productoSeleccionado = (Producto) productosComboBox.getSelectedItem();
             if (productoSeleccionado == null) return;
 
-            // Actualiza los campos comunes de los productos
-            productoSeleccionado.setNombre(nombreField.getText());
-            productoSeleccionado.setDescripcion(descripcionField.getText());
-            productoSeleccionado.setCategoria(categoriaField.getText());
-            productoSeleccionado.setCantidadInicial(Integer.parseInt(cantidadField.getText()));
-            productoSeleccionado.setPrecio(Integer.parseInt(precioField.getText()));
-            productoSeleccionado.setUnidadDeMedida(unidadMedidaField.getText());
+                // Actualiza los campos comunes de los productos
+                productoSeleccionado.setNombre(nombreField.getText());
+                productoSeleccionado.setDescripcion(descripcionField.getText());
+                productoSeleccionado.setCategoria(categoriaField.getText());
+                productoSeleccionado.setCantidadInicial(Integer.parseInt(cantidadField.getText()));
+                productoSeleccionado.setPrecio(Integer.parseInt(precioField.getText()));
+                productoSeleccionado.setUnidadDeMedida(unidadMedidaField.getText());
 
             // Actualiza campos específicos de los productos y valida fechas
-            if (productoSeleccionado instanceof ProductoPerecedero) {
-                LocalDate fechaVencimiento = LocalDate.parse(fechaVencimientoField.getText(), dateFormatter);
+                if (productoSeleccionado instanceof ProductoPerecedero) {
+                    LocalDate fechaVencimiento = LocalDate.parse(fechaVencimientoField.getText(), dateFormatter);
                 
-                // Validar que la fecha de vencimiento sea futura
-                if (fechaVencimiento.isBefore(LocalDate.now())) {
-                    JOptionPane.showMessageDialog(this, "La fecha de vencimiento debe ser una fecha futura.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
-                    return; // Salir del método si la fecha es incorrecta
-                }
+                    // Validar que la fecha de vencimiento sea futura
+                    if (fechaVencimiento.isBefore(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(this, "La fecha de vencimiento debe ser una fecha futura.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
+                        return; // Salir del método si la fecha es incorrecta
+                    }
                 
-                ((ProductoPerecedero) productoSeleccionado).setFechaDeVencimiento(fechaVencimiento);
-            } else if (productoSeleccionado instanceof ProductoDuradero) {
-                int duracionMeses = Integer.parseInt(duracionField.getText());
-                LocalDate fechaFabricacion = LocalDate.parse(fechaFabricacionField.getText(), dateFormatter);
+                    ((ProductoPerecedero) productoSeleccionado).setFechaDeVencimiento(fechaVencimiento);
+                } else if (productoSeleccionado instanceof ProductoDuradero) {
+                    int duracionMeses = Integer.parseInt(duracionField.getText());
+                    LocalDate fechaFabricacion = LocalDate.parse(fechaFabricacionField.getText(), dateFormatter);
                 
-                // Validar que la fecha de fabricación no sea futura
-                if (fechaFabricacion.isAfter(LocalDate.now())) {
-                    JOptionPane.showMessageDialog(this, "La fecha de fabricación no puede ser futura.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
-                    return; // Salir del método si la fecha es incorrecta
-                }
+                    // Validar que la fecha de fabricación no sea futura
+                    if (fechaFabricacion.isAfter(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(this, "La fecha de fabricación no puede ser futura.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
+                        return; // Salir del método si la fecha es incorrecta
+                    }
             
-                ((ProductoDuradero) productoSeleccionado).setDuracionEnMeses(duracionMeses);
-                ((ProductoDuradero) productoSeleccionado).setFechaDeFabricacion(fechaFabricacion);
-            }
+                    ((ProductoDuradero) productoSeleccionado).setDuracionEnMeses(duracionMeses);
+                    ((ProductoDuradero) productoSeleccionado).setFechaDeFabricacion(fechaFabricacion);
+                }
 
-            ProductoRepositorio.actualizarProducto(productoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente.");
+                ProductoRepositorio.actualizarProducto(productoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente.");
             
-            // Cerrar la ventana después de guardar
-            dispose();
-        } catch (DateTimeParseException ex) {
-            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto. Use yyyy-MM-dd.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Formato numérico incorrecto en cantidad o precio.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+                // Cerrar la ventana después de guardar
+                dispose();
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto. Use yyyy-MM-dd.", "Error de Fecha", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Formato numérico incorrecto en cantidad o precio.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
