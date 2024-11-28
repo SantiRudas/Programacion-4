@@ -14,20 +14,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import parcial1.Producto;
 import parcial1.ProductoRepositorio;
+import parcial1.ProveedorRepositorio;
 import parcial1.Usuario;
 
 public class MainFrame extends JFrame{
+    private ProductoRepositorio ProductoRepositorio;
+    private ProveedorRepositorio ProveedorRepositorio;
+    
+    
     private JButton logoutButton;
     private JButton agregarPButton;
     private JButton modificarPButton;
     private JButton eliminarPButton;
     private JButton visualizarPButton;
-    private ProductoRepositorio ProductoRepositorio;
-    private JButton transaccionButton;
+    
+    
+    private JButton agregarProveedorButton;
+    private JButton modificarProveedorButton;
+    private JButton eliminarProveedorButton;
+    private JButton visualizarProveedorButton;
 
+    //botones para transacciones
+    private JButton transaccionButton;
+    
     public MainFrame(Usuario usuario) {
         setTitle("Bienvenido");
-        setSize(800, 500);
+        setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         
@@ -38,6 +50,7 @@ public class MainFrame extends JFrame{
         bienvenidaLabel.setBounds(10, 10, 350, 50);
         add(bienvenidaLabel);
 
+        //botones para productos --------------------------------------------
         agregarPButton = new JButton("Agregar Producto");
         agregarPButton.setBounds(300, 70, 150, 90);
         add(agregarPButton);
@@ -54,16 +67,6 @@ public class MainFrame extends JFrame{
         visualizarPButton.setBounds(470, 180, 150, 90);
         add(visualizarPButton);
         
-        transaccionButton = new JButton("Hacer Movimientos");
-        transaccionButton.setBounds(300, 290, 320, 90);
-        add(transaccionButton);
-        
-        // Validación de permisos basada en el rol
-        if (usuario.getRol().equalsIgnoreCase("auxiliar")) {
-            modificarPButton.setEnabled(false);
-            eliminarPButton.setEnabled(false);
-        }
-        
         agregarPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,7 +74,6 @@ public class MainFrame extends JFrame{
                 agregarProductoFrame.setVisible(true);
             }
         });
-        
         
         modificarPButton.addActionListener(new ActionListener() {
             @Override
@@ -81,7 +83,6 @@ public class MainFrame extends JFrame{
             }
         });
         
-
         eliminarPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +90,6 @@ public class MainFrame extends JFrame{
                 eliminarFrame.setVisible(true);
             }
         });
-
      
         visualizarPButton.addActionListener(new ActionListener() {
             @Override
@@ -98,7 +98,43 @@ public class MainFrame extends JFrame{
                 visualizarframe.setVisible(true);
             }
         });
+        //-------------------------------------------------------------------
         
+        //botones para proveedores ------------------------------------------
+        agregarProveedorButton = new JButton("Agregar Proveedor");
+        agregarProveedorButton.setBounds(640, 70, 150, 90);
+        add(agregarProveedorButton);
+
+        modificarProveedorButton = new JButton("Modificar Proveedor");
+        modificarProveedorButton.setBounds(810, 70, 150, 90);
+        add(modificarProveedorButton);
+
+        eliminarProveedorButton = new JButton("Eliminar Proveedor");
+        eliminarProveedorButton.setBounds(640, 180, 150, 90);
+        add(eliminarProveedorButton);
+
+        visualizarProveedorButton = new JButton("Visualizar Proveedor");
+        visualizarProveedorButton.setBounds(810, 180, 150, 90);
+        add(visualizarProveedorButton);
+        
+        agregarProveedorButton.addActionListener(e -> 
+            new AgregarProveedorFrame(MainFrame.this).setVisible(true));
+        
+        modificarProveedorButton.addActionListener(e ->
+            new ModificarProveedorFrame(MainFrame.this).setVisible(true));
+        
+        eliminarProveedorButton.addActionListener(e ->
+            new EliminarProveedorFrame (MainFrame.this).setVisible(true));
+        
+        visualizarProveedorButton.addActionListener(e ->
+            new VisualizarProveedorFrame (MainFrame.this).setVisible(true));
+        //-------------------------------------------------------------------
+        
+        //botones para transacciones ----------------------------------------
+        transaccionButton = new JButton("Hacer Movimientos");
+        transaccionButton.setBounds(300, 290, 320, 90);
+        add(transaccionButton);
+           
         transaccionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,9 +146,9 @@ public class MainFrame extends JFrame{
                 }
             }
         });
-
-
-      
+        //-------------------------------------------------------------------
+        
+        //boton cerrar sesion ------------------------------------------------
         logoutButton = new JButton("Cerrar sesión");
         logoutButton.setBounds(100, 70, 160, 25);
         add(logoutButton);
@@ -124,6 +160,16 @@ public class MainFrame extends JFrame{
                 dispose();  
             }
         });
+        //--------------------------------------------------------------------
+        
+        // Validación de permisos basada en el rol
+        if (usuario.getRol().equalsIgnoreCase("auxiliar")) {
+            modificarPButton.setEnabled(false);
+            eliminarPButton.setEnabled(false);
+            
+            modificarProveedorButton.setEnabled(false);
+            eliminarProveedorButton.setEnabled(false);
+        }
        
         setVisible(true);
     }

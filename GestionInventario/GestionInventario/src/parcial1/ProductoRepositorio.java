@@ -23,7 +23,6 @@ public class ProductoRepositorio {
     public static void eliminarProducto(Producto producto) {
         if (productos.contains(producto)) {
             productos.remove(producto);
-            // También podrías agregar una lógica adicional aquí, como guardar los cambios en la base de datos, etc.
         } else {
             throw new IllegalArgumentException("El producto no existe en el repositorio.");
         }
@@ -58,36 +57,6 @@ public class ProductoRepositorio {
         return new ArrayList<>(productos); // Retorna una copia de la lista de productos
     }
     
-    //Por consola
-    public void crearProducto() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Ingrese el nombre del producto:");
-        String nombre = scanner.nextLine();
-
-        System.out.println("Ingrese la descripción del producto:");
-        String descripcion = scanner.nextLine();
-
-        System.out.println("Ingrese la categoría del producto:");
-        String categoria = scanner.nextLine();
-
-        System.out.println("Ingrese la cantidad inicial:");
-        int cantidadInicial = scanner.nextInt();
-
-        System.out.println("Ingrese el precio del producto:");
-        int precio = scanner.nextInt();
-
-        scanner.nextLine(); // Consumir el salto de línea
-
-        System.out.println("Ingrese la unidad de medida del producto:");
-        String unidadDeMedida = scanner.nextLine();
-
-        Producto nuevoProducto = new Producto(nombre, descripcion, categoria, cantidadInicial, precio, unidadDeMedida);
-
-        productos.add(nuevoProducto);
-
-        System.out.println("Producto agregado exitosamente.");
-    }
 
     // Método para mostrar todos los productos
     public void mostrarProductos() {

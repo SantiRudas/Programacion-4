@@ -32,7 +32,7 @@ public class Producto {
     
     @Override
     public String toString() {
-        return nombre; // Solo se muestra el nombre en el JComboBox
+        return nombre;
     }
 
     public String getNombre() {
