@@ -9,7 +9,9 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 import parcial1.Producto;
+import parcial1.ProductoRepositorio;
 import parcial1.TransaccionInventario;
+import parcial1.TransaccionRepositorio;
 
 /**
  *
@@ -49,15 +51,24 @@ public class TransaccionInventarioFrame extends JDialog {
         JButton realizarButton = new JButton("Realizar Transacción");
         realizarButton.addActionListener(e -> {
             try {
+                if (cantidadField.getText().isEmpty() || razonField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+                    return;
+                }
+                
                 int cantidad = Integer.parseInt(cantidadField.getText());
                 String razon = razonField.getText();
                 TransaccionInventario.TipoTransaccion tipo = (TransaccionInventario.TipoTransaccion) tipoComboBox.getSelectedItem();
+                
 
                 TransaccionInventario transaccion = new TransaccionInventario(producto, cantidad, razon, tipo);
                 if (transaccion.realizarTransaccion()) {
+                    TransaccionRepositorio.agregarTransaccion(transaccion);
                     JOptionPane.showMessageDialog(this, "Transacción realizada con éxito");
                     dispose();
-                } else {
+                    ProductoRepositorio.verificarExistenciasMinimas();
+                }
+                else {
                     JOptionPane.showMessageDialog(this, "Error: No se pudo realizar la transacción");
                 }
             } catch (NumberFormatException ex) {

@@ -15,8 +15,8 @@ public class ProductoDuradero extends Producto{
     private LocalDate fechaDeFabricacion;
     
     public ProductoDuradero(String nombre, String descripcion, String categoria,
-            int cantidadInicial, int precio, String unidadDeMedida, int duracionEnMeses, LocalDate fechaDeFabricacion){    
-        super(nombre, descripcion, categoria, cantidadInicial, precio, unidadDeMedida);
+            int cantidadInicial, int precio, String unidadDeMedida, String idProducto, int duracionEnMeses, LocalDate fechaDeFabricacion){    
+        super(nombre, descripcion, categoria, cantidadInicial, precio, unidadDeMedida, idProducto);
         this.duracionEnMeses = duracionEnMeses;
         this.fechaDeFabricacion = fechaDeFabricacion;
     }

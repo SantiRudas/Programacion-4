@@ -7,6 +7,7 @@ package parcial1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Rudas
@@ -18,6 +19,16 @@ public class ProductoRepositorio {
     public static void agregarProducto(Producto producto){
         productos.add(producto);
         System.out.println("Producto creado exitosamente");
+        // Si el producto tiene una cantidad inicial, registrar una transacción inicial
+        if (producto.getCantidadInicial() > 0) {
+            TransaccionInventario transaccionInicial = new TransaccionInventario(
+                producto,
+                producto.getCantidadInicial(),
+                "Inventario inicial",
+                TransaccionInventario.TipoTransaccion.AGREGAR
+            );
+            TransaccionRepositorio.agregarTransaccion(transaccionInicial);
+        }
     }
     
     public static void eliminarProducto(Producto producto) {
@@ -74,4 +85,24 @@ public class ProductoRepositorio {
             }
         }
     }
+    
+    public static void verificarExistenciasMinimas() {
+        for (Producto producto : ProductoRepositorio.obtenerProductos()) {
+            if (producto.getCantidadInicial() < producto.getCantidadMinima()) {
+            // Notificar al usuario
+                int cantidadFaltante = producto.getCantidadMinima() - producto.getCantidadInicial();
+                int respuesta = JOptionPane.showOptionDialog(null, 
+                    "El producto " + producto.getNombre() + " está por debajo de su cantidad mínima. Se recomienda hacer una compra para reponerlo. ¿Desea proceder con una compra de " 
+                    + cantidadFaltante + " unidades?", 
+                    "Alerta de Existencias Mínimas", 
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Aceptar" }, null);
+
+                if (respuesta == 0) {
+                // Si el usuario acepta, hacer la transacción de compra
+                    TransaccionRepositorio.realizarTransaccionCompra(producto, cantidadFaltante);
+                }
+            }
+        }
+    }
+
 }

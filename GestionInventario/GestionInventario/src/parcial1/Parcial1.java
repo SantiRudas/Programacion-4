@@ -37,11 +37,13 @@ public class Parcial1 {
         //UsuarioRepositorio.buscarUsuarioPorDocumento("1004754881");
         
         // Ejemplo de agregar productos al repositorio
-        ProductoRepositorio.agregarProducto(new ProductoPerecedero("Leche", "Leche entera", "Lácteos", 10, 2000, "Litros", LocalDate.of(2024, 11, 15)));
-        ProductoRepositorio.agregarProducto(new ProductoDuradero("Mesa", "Mesa de madera", "Muebles", 5, 150000, "Unidades", 60, LocalDate.of(2023, 10, 01)));
+        ProductoRepositorio.agregarProducto(new ProductoPerecedero("Leche", "Leche entera", "Lácteos", 10, 2000, "Litros", "1", LocalDate.of(2024, 11, 15)));
+        ProductoRepositorio.agregarProducto(new ProductoDuradero("Mesa", "Mesa de madera", "Muebles", 10, 150000, "Unidades", "2", 60, LocalDate.of(2023, 10, 01)));
         
         ProveedorRepositorio.agregarProveedor(new Proveedor("luker", "pereira", "312769513", "1"));
         ProveedorRepositorio.agregarProveedor(new Proveedor("colanta", "dosquebradas", "3001230312", "2"));
+        
+        ProductoRepositorio.verificarExistenciasMinimas();
         
         new LoginFrame();
     }

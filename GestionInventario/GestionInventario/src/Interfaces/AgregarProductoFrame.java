@@ -16,7 +16,7 @@ import parcial1.ProductoPerecedero;
 import parcial1.ProductoRepositorio;
 
 public class AgregarProductoFrame extends JDialog {
-    private JTextField nombreField, descripcionField, categoriaField, cantidadField, precioField, unidadMedidaField;
+    private JTextField nombreField, descripcionField, categoriaField, cantidadField, precioField, unidadMedidaField, idProductoField;
     private JTextField fechaVencimientoField, duracionField, fechaFabricacionField;
     private JButton guardarButton;
     private JComboBox<String> tipoProductoComboBox;
@@ -24,7 +24,7 @@ public class AgregarProductoFrame extends JDialog {
 
     public AgregarProductoFrame(JFrame parent) {
         super(parent, "Agregar Producto", true);  // Esto hace que el diálogo sea modal
-        setSize(450, 500);
+        setSize(500, 500);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLayout(null);
 
@@ -70,48 +70,55 @@ public class AgregarProductoFrame extends JDialog {
         unidadMedidaField = new JTextField();
         unidadMedidaField.setBounds(170, 210, 250, 25);
         add(unidadMedidaField);
+        
+        JLabel idProductoLabel = new JLabel("ID Producto:");
+        idProductoLabel.setBounds(10, 250, 150, 25);
+        add(idProductoLabel);
+        idProductoField = new JTextField();
+        idProductoField.setBounds(170, 250, 250, 25);
+        add(idProductoField);
 
         // Selector de tipo de producto
         JLabel tipoProductoLabel = new JLabel("Tipo de Producto:");
-        tipoProductoLabel.setBounds(10, 250, 150, 25);
+        tipoProductoLabel.setBounds(10, 290, 150, 25);
         add(tipoProductoLabel);
         tipoProductoComboBox = new JComboBox<>(new String[]{"Perecedero", "Duradero"});
-        tipoProductoComboBox.setBounds(170, 250, 250, 25);
+        tipoProductoComboBox.setBounds(170, 290, 250, 25);
         add(tipoProductoComboBox);
 
         // Campos adicionales
         JLabel fechaVencimientoLabel = new JLabel("Fecha de Vencimiento:");
-        fechaVencimientoLabel.setBounds(10, 290, 150, 25);
+        fechaVencimientoLabel.setBounds(10, 320, 150, 25);
         add(fechaVencimientoLabel);
         fechaVencimientoField = new JTextField();
-        fechaVencimientoField.setBounds(170, 290, 250, 25);
+        fechaVencimientoField.setBounds(170, 320, 250, 25);
         fechaVencimientoField.setVisible(false);
         add(fechaVencimientoField);
         
         
         JLabel duracionLabel = new JLabel("Duracion en Meses:");
-        duracionLabel.setBounds(10, 320, 150, 25);
+        duracionLabel.setBounds(10, 360, 150, 25);
         add(duracionLabel);
         duracionField = new JTextField();
-        duracionField.setBounds(170, 320, 250, 25);
+        duracionField.setBounds(170, 360, 250, 25);
         duracionField.setVisible(false);
         add(duracionField);
 
         JLabel fechaFabricacionLabel = new JLabel("Fecha de Fabricacion:");
-        fechaFabricacionLabel.setBounds(10, 360, 150, 25);
+        fechaFabricacionLabel.setBounds(10, 390, 150, 25);
         add(fechaFabricacionLabel);
         fechaFabricacionField = new JTextField();
-        fechaFabricacionField.setBounds(170, 360, 250, 25);
+        fechaFabricacionField.setBounds(170, 390, 250, 25);
         fechaFabricacionField.setVisible(false);
         add(fechaFabricacionField);
         
         formatoFechaLabel = new JLabel("(Formato Fechas: YYYY-MM-DD)");
-        formatoFechaLabel.setBounds(10, 390, 200, 20);
+        formatoFechaLabel.setBounds(10, 420, 200, 20);
         add(formatoFechaLabel);
         
                 // Botón Guardar
         guardarButton = new JButton("Guardar");
-        guardarButton.setBounds(150, 420, 150, 30);
+        guardarButton.setBounds(150, 450, 150, 30);
         add(guardarButton);
         
 
@@ -139,6 +146,7 @@ public class AgregarProductoFrame extends JDialog {
                     int cantidad = Integer.parseInt(cantidadField.getText());
                     int precio = Integer.parseInt(precioField.getText());
                     String unidadDeMedida = unidadMedidaField.getText();
+                    String idProducto = idProductoField.getText();
 
                     String tipo = (String) tipoProductoComboBox.getSelectedItem();
                     Producto producto;
@@ -152,7 +160,7 @@ public class AgregarProductoFrame extends JDialog {
                             return; // Salir del método si la fecha es incorrecta
                         }
                         
-                        producto = new ProductoPerecedero(nombre, descripcion, categoria, cantidad, precio, unidadDeMedida, fechaDeVencimiento);
+                        producto = new ProductoPerecedero(nombre, descripcion, categoria, cantidad, precio, unidadDeMedida, idProducto, fechaDeVencimiento);
                     } else {
                         int duracionEnMeses = Integer.parseInt(duracionField.getText());
                         LocalDate fechaDeFabricacion = LocalDate.parse(fechaFabricacionField.getText());
@@ -162,7 +170,7 @@ public class AgregarProductoFrame extends JDialog {
                             return; // Salir del método si la fecha es incorrecta
                         }
                         
-                        producto = new ProductoDuradero(nombre, descripcion, categoria, cantidad, precio, unidadDeMedida, duracionEnMeses, fechaDeFabricacion);
+                        producto = new ProductoDuradero(nombre, descripcion, categoria, cantidad, precio, unidadDeMedida, idProducto, duracionEnMeses, fechaDeFabricacion);
                         
                         
                     }

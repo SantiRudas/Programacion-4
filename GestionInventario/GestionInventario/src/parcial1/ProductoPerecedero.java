@@ -14,8 +14,8 @@ public class ProductoPerecedero extends Producto{
      private LocalDate fechaDeVencimiento;
      
      public ProductoPerecedero(String nombre, String descripcion, String categoria,
-            int cantidadInicial, int precio, String unidadDeMedida, LocalDate fechaDeVencimiento){    
-        super(nombre, descripcion, categoria, cantidadInicial, precio, unidadDeMedida);
+            int cantidadInicial, int precio, String unidadDeMedida, String idProducto, LocalDate fechaDeVencimiento){    
+        super(nombre, descripcion, categoria, cantidadInicial, precio, unidadDeMedida, idProducto);
         this.fechaDeVencimiento = fechaDeVencimiento;
     }
     

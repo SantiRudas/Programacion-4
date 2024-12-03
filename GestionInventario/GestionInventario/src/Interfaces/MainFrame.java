@@ -36,6 +36,7 @@ public class MainFrame extends JFrame{
 
     //botones para transacciones
     private JButton transaccionButton;
+    private JButton historialTransaccionesButton;
     
     public MainFrame(Usuario usuario) {
         setTitle("Bienvenido");
@@ -147,7 +148,18 @@ public class MainFrame extends JFrame{
             }
         });
         //-------------------------------------------------------------------
+        historialTransaccionesButton = new JButton("Historial de Movimientos");
+        historialTransaccionesButton.setBounds(640, 290, 320, 90);
+        add(historialTransaccionesButton);
         
+        historialTransaccionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HistorialTransaccionesFrame historialFrame = new HistorialTransaccionesFrame(MainFrame.this);
+                historialFrame.setVisible(true);
+            }
+        });
+        //--------------------------------------------------------------------
         //boton cerrar sesion ------------------------------------------------
         logoutButton = new JButton("Cerrar sesión");
         logoutButton.setBounds(100, 70, 160, 25);
@@ -174,6 +186,8 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
     
+    
+    
     private Producto seleccionarProducto() {
         // Mostrar un diálogo para seleccionar el producto (puede ser un JComboBox o una lista)
         Producto[] productos = ProductoRepositorio.obtenerProductos().toArray(new Producto[0]);
@@ -188,4 +202,6 @@ public class MainFrame extends JFrame{
         );
         return productoSeleccionado;
     }
+    
+
 }

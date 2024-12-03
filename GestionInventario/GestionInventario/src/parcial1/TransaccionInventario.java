@@ -4,11 +4,14 @@
  */
 package parcial1;
 
+import java.time.LocalDateTime;
+
 public class TransaccionInventario {
     private Producto producto;
     private int cantidad;
     private String razon;
     private TipoTransaccion tipo;
+    private LocalDateTime fecha;
 
     public enum TipoTransaccion {
         AGREGAR,
@@ -20,6 +23,7 @@ public class TransaccionInventario {
         this.cantidad = cantidad;
         this.razon = razon;
         this.tipo = tipo;
+        this.fecha = LocalDateTime.now();
     }
 
     public boolean realizarTransaccion() {
@@ -37,6 +41,8 @@ public class TransaccionInventario {
         }
         return false;
     }
+    
+    
 
     public Producto getProducto() {
         return producto;
@@ -52,6 +58,10 @@ public class TransaccionInventario {
 
     public TipoTransaccion getTipo() {
         return tipo;
+    }
+    
+    public LocalDateTime getFecha(){
+        return fecha;
     }
 }
 

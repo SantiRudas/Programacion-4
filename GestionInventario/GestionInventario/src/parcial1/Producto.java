@@ -15,12 +15,14 @@ public class Producto {
     private int cantidadInicial;
     private int precio;
     private String unidadDeMedida;
+    private String idProducto;
+    public static final int CANTIDAD_MINIMA_DEFAULT = 10;
     
     
     public Producto(){}
     
     public Producto(String nombre, String descripcion, String categoria,
-            int cantidadInicial, int precio, String unidadDeMedida)
+            int cantidadInicial, int precio, String unidadDeMedida, String idProducto)
     {    
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -28,6 +30,7 @@ public class Producto {
         this.cantidadInicial = cantidadInicial;
         this.precio = precio;
         this.unidadDeMedida = unidadDeMedida;
+        this.idProducto = idProducto;
     }
     
     @Override
@@ -82,6 +85,19 @@ public class Producto {
     public void setUnidadDeMedida(String unidadDeMedida) {
         this.unidadDeMedida = unidadDeMedida;
     }
+
+    public String getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(String idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public int getCantidadMinima() {
+        return CANTIDAD_MINIMA_DEFAULT; // Siempre devuelve el valor de la constante
+    }
+    
     
     
 }
